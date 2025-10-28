@@ -1,0 +1,94 @@
+name: CI - Build and Test in Docker
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        run: docker build -t my-maven-app .
+
+      - name: Run tests inside container
+        run: docker run --rm my-maven-app
+
+      - name: Copy Allure results
+        if: always()
+        run: |
+          docker cp test-run:/app/allure-results ./allure-results || echo "No report found"
+          docker rm test-run
+
+      - name: List Allure results directory
+        if: always()
+        run: ls -la ./allure-results
+
+      - name: Upload Allure results as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: ./allure-results
+
+
+  generate-and-deploy-report:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download Allure results
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-results
+          path: ./allure-results
+
+      # Step 5: Install Allure CLI
+      - name: Install Allure CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y unzip
+          wget https://github.com/allure-framework/allure2/releases/download/2.29.0/allure-2.29.0.zip
+          unzip allure-2.29.0.zip -d /opt/
+          sudo ln -s /opt/allure-2.29.0/bin/allure /usr/bin/allure
+          allure --version
+
+      # Step 6: Generate Allure report
+      - name: Generate Allure Report
+        run: allure generate ./allure-results --clean -o target/allure-report
+
+      # Step 7: Deploy Allure report to GitHub Pages
+      - name: Deploy Allure Report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GH_PAT }}
+          publish_dir: target/allure-report
+          publish_branch: gh-pages
+
+
+  notify:
+    needs: [ build-and-test,generate-and-deploy-report]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Slack Notification
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ needs.build-and-test.result }}
+          text: ${{ needs.build-and-test.outputs.buildStatusMessage }}
+          fields: repo,message,commit,author,action,eventName,ref
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.NEWSLETTER_CHANNEL }}
+
