@@ -4,6 +4,7 @@ import com.carrentalservice.utils.WaitUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 
 import java.nio.file.Paths;
 
@@ -43,6 +44,9 @@ public class BusinessRegistrationPage extends BasePage{
     private WebElement logoUploadField;
 
     @FindBy(xpath = "//input[@placeholder='e.g. Los Angeles']")
+    private WebElement countryField;
+
+    @FindBy(xpath = "//input[@placeholder='e.g. Los Angeles']")
     private WebElement cityField;
 
     @FindBy(xpath = "//app-upload-box[@label='Business Registration Document']//input[@type='file']")
@@ -53,6 +57,12 @@ public class BusinessRegistrationPage extends BasePage{
 
     @FindBy(xpath = "//button[normalize-space()='Back']")
     private WebElement backButton;
+
+    @FindBy(xpath = "//p[contains(@class, 'text-[color:var(--color-danger-default)]')]")
+    private WebElement inputErrorMessage;
+
+    @FindBy(xpath = "//p[contains(@class, 'text-red-500') and contains(@class, 'text-xs')]")
+    private WebElement fileErrorMessage;
 
     public BusinessRegistrationPage(WebDriver driver) {
         super(driver);
@@ -149,6 +159,11 @@ public class BusinessRegistrationPage extends BasePage{
         cityField.sendKeys(city);
     }
 
+    public void enterCountry(String country) {
+//        WaitUtils.waitForElementVisible(driver, countryField);
+        new Select(countryField).selectByVisibleText(country);
+    }
+
     public void clickBrowseDocumentButton() {
         WaitUtils.waitForElementClickable(driver, businessDocumentUploadField);
         businessDocumentUploadField.click();
@@ -173,9 +188,67 @@ public class BusinessRegistrationPage extends BasePage{
         backButton.click();
     }
 
+    public String getInputErrorMessage() {
+        try {
+            WaitUtils.waitForElementVisible(driver, inputErrorMessage);
+            String msg = inputErrorMessage.getText();
+            logger.info("Error message : {}", msg);
+            return msg;
+        } catch (Exception e) {
+            logger.info("No error message shown");
+            return "";
+        }
+    }
+
+    public String getFileErrorMessage() {
+        try {
+            WaitUtils.waitForElementVisible(driver, fileErrorMessage);
+            String msg = fileErrorMessage.getText();
+            logger.info("Error message shown: {}", msg);
+            return msg;
+        } catch (Exception e) {
+            logger.info("No error message visible");
+            return "";
+        }
+    }
+
+    public boolean isInputErrorVisible() {
+        try {
+            WaitUtils.waitForElementVisible(driver, fileErrorMessage);
+            logger.info("Error message shown.");
+            return fileErrorMessage.isDisplayed();
+        } catch (Exception e) {
+            logger.info("Error message not shown.");
+            return false;
+        }
+    }
+
+    public boolean isFIleErrorVisible() {
+        try {
+            WaitUtils.waitForElementVisible(driver, fileErrorMessage);
+            logger.info("Error message is visible.");
+            return fileErrorMessage.isDisplayed();
+        } catch (Exception e) {
+            logger.info("Error message is not visible.");
+            return false;
+        }
+    }
+
+    public boolean isFinishButtonVisible() {
+        try {
+            WaitUtils.waitForElementVisible(driver, finishButton);
+            logger.info("Finish button is visible.");
+            return finishButton.isDisplayed();
+        } catch (Exception e) {
+            logger.info("Finish button is not visible.");
+            return false;
+        }
+    }
+
+
     public void completeBusinessRegistration(String fullName, String email, String phoneNumber,
-                                         String password, String confirmPassword,
-                                         String companyName, String city) {
+                                             String password, String confirmPassword,String companyName, String logoPath,
+                                             String city, String documentPath) {
         enterFullName(fullName);
         enterEmail(email);
         enterPhoneNumber(phoneNumber);
@@ -184,9 +257,30 @@ public class BusinessRegistrationPage extends BasePage{
         clickTermsCheckbox();
         clickNextButton();
         enterCompanyName(companyName);
-        uploadLogo("src/test/resources/files/Screenshot 2023-10-20 111935.png");
+        uploadLogo(logoPath);
+//        enterCountry(country);
         enterCity(city);
-        uploadBusinessDocument("src/test/resources/files/API_Documentation.pdf");
+        uploadBusinessDocument(documentPath);
+        clickFinishButton();
+    }
+
+    public void completeAccountDetails(String fullName, String email, String phoneNumber,
+                                             String password, String confirmPassword) {
+        enterFullName(fullName);
+        enterEmail(email);
+        enterPhoneNumber(phoneNumber);
+        enterPassword(password);
+        enterConfirmPassword(confirmPassword);
+        clickTermsCheckbox();
+        clickNextButton();
+    }
+
+    public void completeCompanyDetails(String companyName, String logoPath, String country, String city, String documentPath) {
+        enterCompanyName(companyName);
+        uploadLogo(logoPath);
+        enterCountry(country);
+        enterCity(city);
+        uploadBusinessDocument(documentPath);
         clickFinishButton();
     }
 
