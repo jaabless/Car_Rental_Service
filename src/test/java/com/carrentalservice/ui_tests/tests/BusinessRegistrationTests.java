@@ -17,7 +17,7 @@ public class BusinessRegistrationTests extends BaseTest{
 
     @BeforeEach
     public void setup() {
-        LoginPage loginPage = homepage.clickLogin();
+       LoginPage loginPage = homepage.clickLogin();
        DecisionPage decisionPage = loginPage.clickRegister();
        decisionPage.clickRegisterBusiness();
     }
@@ -59,6 +59,7 @@ public class BusinessRegistrationTests extends BaseTest{
 
         BusinessRegistrationPage accountPage = new BusinessRegistrationPage(driver);
         accountPage.completeAccountDetails(fullName, email, phoneNumber, password, confirmPassword);
+        accountPage.clickNextButton();
 
         assertTrue(accountPage.isFinishButtonVisible(), "Finish button should be visible");
     }

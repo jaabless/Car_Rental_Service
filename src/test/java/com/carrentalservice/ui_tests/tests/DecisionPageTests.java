@@ -1,6 +1,7 @@
 package com.carrentalservice.ui_tests.tests;
 
 import com.carrentalservice.pages.BusinessRegistrationPage;
+import com.carrentalservice.pages.CustomerRegistrationPage;
 import com.carrentalservice.pages.DecisionPage;
 import com.carrentalservice.pages.LoginPage;
 import io.qameta.allure.Story;
@@ -15,9 +16,8 @@ public class DecisionPageTests extends BaseTest{
 
     @BeforeEach
     public void setup() {
-        LoginPage login = new LoginPage(driver);
-        login.open();
-        login.clickRegister();
+        LoginPage loginPage = homepage.clickLogin();
+        loginPage.clickRegister();
     }
 
     @Test
@@ -35,7 +35,7 @@ public class DecisionPageTests extends BaseTest{
     @Story("Decision Page Functionality")
     public void clickCustomer() {
         DecisionPage decisionPage = new DecisionPage(driver);
-        var customerRegistrationPage = decisionPage.clickRegisterCustomer();
+        CustomerRegistrationPage customerRegistrationPage = decisionPage.clickRegisterCustomer();
         assertTrue(customerRegistrationPage.isLoaded());
 
     }
