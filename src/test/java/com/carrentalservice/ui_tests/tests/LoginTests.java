@@ -15,12 +15,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class LoginTests extends BaseTest {
-    private LoginPage loginPage;
+
+    @BeforeEach
+    public void setup() {
+        LoginPage loginPage = homepage.clickLogin();
+    }
 
     @Test
     public void positiveLoginTest() {
-//        LoginPage login = new LoginPage(driver);
-//        login.open();
+        LoginPage loginPage = new LoginPage(driver);
         DashboardPage dashboard = loginPage.enterCredentials(TestData.VALID_EMAIL, TestData.VALID_PASSWORD);
         // assert dashboard loaded
         assertFalse(dashboard.isLoaded(), "Dashboard should load after successful login");
@@ -32,6 +35,7 @@ public class LoginTests extends BaseTest {
     @DisplayName("Verify that all users can securely log in to access the platform with valid credentials")
     @Severity(SeverityLevel.CRITICAL)
     public void testLoginWithValidData(String email, String password, boolean shouldSucceed, String expectedResult) {
+        LoginPage loginPage = new LoginPage(driver);
         DashboardPage dashboard = loginPage.enterCredentials(email, password);
         assertTrue(dashboard.isLoaded(), "Dashboard should load after successful login");
         assertEquals(dashboard.getUserName(), "dashboard works!", "Unexpected user name on dashboard");
@@ -43,6 +47,7 @@ public class LoginTests extends BaseTest {
     @DisplayName("Test login with invalid credentials")
     @Severity(SeverityLevel.CRITICAL)
     public void testLoginWithInvalidData(String email, String password, boolean shouldSucceed, String expectedResult) {
+        LoginPage loginPage = new LoginPage(driver);
         DashboardPage dashboard = loginPage.enterCredentials(email, password);
         assertFalse(dashboard.isLoaded(), "Dashboard should load after successful login");
         assertEquals(expectedResult, loginPage.getErrorMessageText(), "Unexpected error message");
@@ -53,6 +58,7 @@ public class LoginTests extends BaseTest {
     @Story("Login Functionality")
     @Severity(SeverityLevel.NORMAL)
     public void testRestrictedPageAccess() {
+        LoginPage loginPage = new LoginPage(driver);
         driver.get("https://d2pnvbshv9sl2w.cloudfront.net/business-owner/dashboard");
         assertTrue(loginPage.isLoginPageDisplayed(), "Expected to be redirected to login page");
     }
@@ -62,6 +68,7 @@ public class LoginTests extends BaseTest {
     @Story("Login Functionality")
     @Severity(SeverityLevel.MINOR)
     public void testLoginPageFormDisplay() {
+        LoginPage loginPage = new LoginPage(driver);
         assertTrue(loginPage.isLoginPageDisplayed(), "Login page form not displayed correctly");
     }
 
@@ -70,6 +77,7 @@ public class LoginTests extends BaseTest {
     @Story("Login Functionality")
     @Severity(SeverityLevel.CRITICAL)
     public void invalidCredentialsShowError() {
+        LoginPage loginPage = new LoginPage(driver);
         loginPage.enterEmail(TestData.INVALID_EMAIL);
         loginPage.enterPassword(TestData.INVALID_PASSWORD);
         loginPage.clickLogin();
@@ -82,6 +90,7 @@ public class LoginTests extends BaseTest {
     @Story("Login Functionality")
     @Severity(SeverityLevel.MINOR)
     public void testClickRegister(){
+        LoginPage loginPage = new LoginPage(driver);
         var decisionPage = loginPage.clickRegister();
         assertTrue(decisionPage.isLoaded(), "Clicking register should redirect to Decision Page");
     }
@@ -91,6 +100,7 @@ public class LoginTests extends BaseTest {
     @Story("Login Functionality")
     @Severity(SeverityLevel.MINOR)
     public void clickRegisterRedirectsToDecisionPage() {
+        LoginPage loginPage = new LoginPage(driver);
         var decisionPage = loginPage.clickRegister();
         assertTrue(decisionPage.isLoaded(), "Clicking register should redirect to Decision Page");
     }
