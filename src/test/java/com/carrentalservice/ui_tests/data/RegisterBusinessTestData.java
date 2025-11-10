@@ -63,19 +63,19 @@ public class RegisterBusinessTestData {
         return Stream.of(
                 Arguments.of(
                         "John Doe", "newbusinessemail@gmail.com", "+233242531625", "SecurePass123!", "SecurePass123!",
-                        "Acme Car Rentals", "src/test/resources/files/logo.png", "Ghana", "Kumasi", "src/test/resources/files/doc.pdf"
+                        "Business Car Rentals", "src/test/resources/files/logo.png", "Ghana", "Kumasi", "src/test/resources/files/doc.pdf"
                 ),
                 Arguments.of(
                         "John Doe", "newcustomeremail@gmail.com", "+233242531625", "SecurePass123!", "SecurePass123!",
-                        "Acme Car Rentals", "src/test/resources/files/logo.png", "Ghana", "Kumasi", "src/test/resources/files/doc.pdf"
+                        "Customer Car Rentals", "src/test/resources/files/logo.png", "Ghana", "Kumasi", "src/test/resources/files/doc.pdf"
                 ),
                 Arguments.of(
                         "John Doe", "test@example.com", "+233242531625", "SecurePass123!", "SecurePass123!",
-                        "Acme Car Rentals", "src/test/resources/files/logo.png", "Ghana", "Kumasi", "src/test/resources/files/doc.pdf"
+                        "Test Car Rentals", "src/test/resources/files/logo.png", "Ghana", "Kumasi", "src/test/resources/files/doc.pdf"
                 ),
                 Arguments.of(
                         "John Doe", "jefferytechie@gmail.com", "+233242531625", "SecurePass123!", "SecurePass123!",
-                        "Acme Car Rentals", "src/test/resources/files/logo.png", "Ghana", "Kumasi", "src/test/resources/files/doc.pdf"
+                        "Techie Car Rentals", "src/test/resources/files/logo.png", "Ghana", "Kumasi", "src/test/resources/files/doc.pdf"
                 )
         );
     }
