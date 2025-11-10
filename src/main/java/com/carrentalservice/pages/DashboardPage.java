@@ -7,8 +7,8 @@ import org.openqa.selenium.WebElement;
 
 public class DashboardPage extends BasePage {
 
-    @FindBy(css = "header .user-name") // example
-    private WebElement userNameLabel;
+    @FindBy(xpath = "//p[normalize-space()='dashboard works!']") // example
+    private WebElement dashboardLabel;
 
     public DashboardPage(WebDriver driver) {
         super(driver);
@@ -16,13 +16,20 @@ public class DashboardPage extends BasePage {
 
     public boolean isLoaded() {
         try {
-            WaitUtils.waitForElementVisible(driver, userNameLabel);
+            WaitUtils.waitForElementVisible(driver, dashboardLabel);
             logger.info("Dashboard loaded.");
-            return userNameLabel.isDisplayed();
+            return dashboardLabel.isDisplayed();
         } catch (Exception e) {
             logger.warn("Dashboard not loaded: {}", e.getMessage());
             return false;
         }
+    }
+
+    public String getUserName() {
+        WaitUtils.waitForElementVisible(driver, dashboardLabel);
+        String msg = dashboardLabel.getText();
+        logger.info("Review message : {}", msg);
+        return msg;
     }
 }
 
