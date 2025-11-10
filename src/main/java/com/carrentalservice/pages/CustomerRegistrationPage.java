@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class CustomerRegistrationPage extends BasePage{
 
-    @FindBy(xpath = "//p[normalize-space()='customer-registration works!']")
+    @FindBy(xpath = "//h1[normalize-space()='Create Your Account']")
     private WebElement heroTitle;
 
     public CustomerRegistrationPage(WebDriver driver) {
