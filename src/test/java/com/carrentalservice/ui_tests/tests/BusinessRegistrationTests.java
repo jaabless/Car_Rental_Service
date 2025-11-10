@@ -2,6 +2,7 @@ package com.carrentalservice.ui_tests.tests;
 
 import com.carrentalservice.pages.BusinessRegistrationPage;
 import com.carrentalservice.pages.DecisionPage;
+import com.carrentalservice.pages.LoginPage;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,6 +17,7 @@ public class BusinessRegistrationTests extends BaseTest{
 
     @BeforeEach
     public void setup() {
+        LoginPage loginPage = homepage.clickLogin();
        DecisionPage decisionPage = loginPage.clickRegister();
        decisionPage.clickRegisterBusiness();
     }
@@ -28,8 +30,8 @@ public class BusinessRegistrationTests extends BaseTest{
                                               String password, String confirmPassword,String companyName, String logoPath,String country, String city, String documentPath) {
         BusinessRegistrationPage businessRegistrationPage = new BusinessRegistrationPage(driver);
         businessRegistrationPage.completeBusinessRegistration(fullName, email, phoneNumber, password, confirmPassword, companyName, logoPath, country, city, documentPath);
-        // Implement test logic for valid business registration
-        // Assert that registration was successful, e.g., by checking for a success message or redirection
+        assertTrue(businessRegistrationPage.isReviewPageDisplayed());
+        assertEquals(businessRegistrationPage.getReviewMessage(), "Your Account Is Being Reviewed");
     }
 
     @ParameterizedTest

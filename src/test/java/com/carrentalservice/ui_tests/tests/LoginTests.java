@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class LoginTests extends BaseTest {
+    private LoginPage loginPage;
 
     @Test
     public void positiveLoginTest() {
@@ -33,6 +34,7 @@ public class LoginTests extends BaseTest {
     public void testLoginWithValidData(String email, String password, boolean shouldSucceed, String expectedResult) {
         DashboardPage dashboard = loginPage.enterCredentials(email, password);
         assertTrue(dashboard.isLoaded(), "Dashboard should load after successful login");
+        assertEquals(dashboard.getUserName(), "dashboard works!", "Unexpected user name on dashboard");
     }
 
     @ParameterizedTest
