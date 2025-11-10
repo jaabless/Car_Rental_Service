@@ -41,7 +41,7 @@ jobs:
           name: allure-results
           path: ./allure-results
 
-
+ # PERFORMANCE TESTING JOB
   performance:
     name: JMeter Load Test
     runs-on: ubuntu-latest
@@ -66,6 +66,7 @@ jobs:
           name: jmeter-results
           path: jmeter-results
 
+#SECURITY TESTING JOB
   security:
     name: OWASP ZAP Security Scan
     runs-on: ubuntu-latest
@@ -249,4 +250,4 @@ jobs:
                  ]
                }
              ]
-           }" ${{ secrets.NEWSLETTER_CHANNEL }}}}
+           }" ${{ secrets.NEWSLETTER_CHANNEL }}
