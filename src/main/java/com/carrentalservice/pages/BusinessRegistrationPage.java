@@ -64,6 +64,9 @@ public class BusinessRegistrationPage extends BasePage{
     @FindBy(xpath = "//p[contains(@class, 'text-red-500') and contains(@class, 'text-xs')]")
     private WebElement fileErrorMessage;
 
+    @FindBy(xpath = "//h1[@id='registration-success-heading']")
+    private WebElement getReviewMessage;
+
     public BusinessRegistrationPage(WebDriver driver) {
         super(driver);
     }
@@ -248,6 +251,29 @@ public class BusinessRegistrationPage extends BasePage{
         } catch (Exception e) {
             logger.info("Finish button is not visible.");
             return false;
+        }
+    }
+
+    public boolean isReviewPageDisplayed() {
+        try {
+            WaitUtils.waitForElementVisible(driver, getReviewMessage);
+            logger.info("Review page is displayed.");
+            return getReviewMessage.isDisplayed();
+        } catch (Exception e) {
+            logger.info("Review page is not displayed.");
+            return false;
+        }
+    }
+
+    public String getReviewMessage() {
+        try {
+            WaitUtils.waitForElementVisible(driver, getReviewMessage);
+            String msg = getReviewMessage.getText();
+            logger.info("Review message : {}", msg);
+            return msg;
+        } catch (Exception e) {
+            logger.info("No review message shown");
+            return "";
         }
     }
 
