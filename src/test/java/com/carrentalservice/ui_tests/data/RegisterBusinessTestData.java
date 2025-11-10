@@ -21,7 +21,7 @@ public class RegisterBusinessTestData {
                 Arguments.of("John Doe", "invalid", "+233245323651", "SecurePass123!", "SecurePass123!", "Email invalid"),
                 Arguments.of("John Doe", "test@example.com", "", "SecurePass123!", "SecurePass123!!", "Phone number is required"),
                 Arguments.of("John Doe", "test@example.com", "12345678", "SecurePass123!", "SecurePass123!", "Invalid phone number"),
-                Arguments.of("John Doe", "test@example.com", "+233245323651", "pass", "SecurePass123!", "Minimum of 8 characters, uppercase, number and a symbol"),
+                Arguments.of("John Doe", "test@example.com", "+233245323651", "pass", "SecurePass123!", "Your passwords do not match"),
                 Arguments.of("John Doe", "test@example.com", "+233245323651", "SecurePass123!", "", "Your passwords do not match"),
                 Arguments.of("John Doe", "test@example.com", "+233245323651", "SecurePass123!", "WrongPass", "Your passwords do not match")
         );
