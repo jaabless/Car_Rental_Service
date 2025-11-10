@@ -2,6 +2,7 @@ package com.carrentalservice.ui_tests.tests;
 
 
 import com.carrentalservice.config.Config;
+import com.carrentalservice.pages.Homepage;
 import com.carrentalservice.pages.LoginPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
@@ -14,7 +15,8 @@ import org.slf4j.LoggerFactory;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BaseTest {
     protected WebDriver driver;
-    protected static LoginPage loginPage;
+//    protected static LoginPage loginPage;
+    protected static Homepage homepage;
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @BeforeAll
@@ -42,7 +44,7 @@ public class BaseTest {
         logger.info("Navigating to base URL: {}", Config.BASE_URL);
         driver.get(Config.BASE_URL);
 
-        loginPage = new LoginPage(driver);
+        homepage = new Homepage(driver);
     }
 
     @AfterEach
