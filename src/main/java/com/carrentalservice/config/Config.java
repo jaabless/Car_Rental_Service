@@ -2,7 +2,7 @@ package com.carrentalservice.config;
 
 
 public class Config {
-    public static final String BASE_URL = "https://d2pnvbshv9sl2w.cloudfront.net/auth/login";
+    public static final String BASE_URL = "https://d2pnvbshv9sl2w.cloudfront.net/homepage";
     // Timeout seconds
     public static final long DEFAULT_TIMEOUT = 10;
 }
