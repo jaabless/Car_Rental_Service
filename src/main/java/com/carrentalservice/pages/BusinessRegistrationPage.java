@@ -13,13 +13,13 @@ public class BusinessRegistrationPage extends BasePage{
     @FindBy(xpath = "//h1[normalize-space()='Register']")
     private WebElement registerTitle;
 
-    @FindBy(xpath = "//input[@placeholder='Paul Lawer Terku']")
+    @FindBy(xpath = "//input[@placeholder='Jane Doe']")
     private WebElement fullNameField;
 
-    @FindBy(xpath = "//input[@placeholder='paullawerterku@gmail.com']")
+    @FindBy(xpath = "//input[@placeholder='user@example.com']")
     private WebElement emailField;
 
-    @FindBy(xpath = "//input[@placeholder='+233242531625']")
+    @FindBy(xpath = "//input[@placeholder='e.g. +233242000000']")
     private WebElement phoneNumberField;
 
     @FindBy(xpath = "//app-input-field[@label='Password']//input[@placeholder='********']")
@@ -43,7 +43,7 @@ public class BusinessRegistrationPage extends BasePage{
     @FindBy(xpath = "//app-upload-box[@label='Logo']//input[@type='file']")
     private WebElement logoUploadField;
 
-    @FindBy(xpath = "//input[@placeholder='e.g. Los Angeles']")
+    @FindBy(xpath = "//input[@placeholder='Select your country']")
     private WebElement countryField;
 
     @FindBy(xpath = "//input[@placeholder='e.g. Los Angeles']")
@@ -159,9 +159,15 @@ public class BusinessRegistrationPage extends BasePage{
         cityField.sendKeys(city);
     }
 
+//    public void enterCountry(String country) {
+////        WaitUtils.waitForElementVisible(driver, countryField);
+//        new Select(countryField).selectByVisibleText(country);
+//    }
+
     public void enterCountry(String country) {
-//        WaitUtils.waitForElementVisible(driver, countryField);
-        new Select(countryField).selectByVisibleText(country);
+        WaitUtils.waitForElementVisible(driver, countryField);
+        countryField.clear();
+        countryField.sendKeys(country);
     }
 
     public void clickBrowseDocumentButton() {
@@ -248,7 +254,7 @@ public class BusinessRegistrationPage extends BasePage{
 
     public void completeBusinessRegistration(String fullName, String email, String phoneNumber,
                                              String password, String confirmPassword,String companyName, String logoPath,
-                                             String city, String documentPath) {
+                                             String country, String city, String documentPath) {
         enterFullName(fullName);
         enterEmail(email);
         enterPhoneNumber(phoneNumber);
@@ -258,7 +264,7 @@ public class BusinessRegistrationPage extends BasePage{
         clickNextButton();
         enterCompanyName(companyName);
         uploadLogo(logoPath);
-//        enterCountry(country);
+        enterCountry(country);
         enterCity(city);
         uploadBusinessDocument(documentPath);
         clickFinishButton();
@@ -272,7 +278,7 @@ public class BusinessRegistrationPage extends BasePage{
         enterPassword(password);
         enterConfirmPassword(confirmPassword);
         clickTermsCheckbox();
-        clickNextButton();
+//        clickNextButton();
     }
 
     public void completeCompanyDetails(String companyName, String logoPath, String country, String city, String documentPath) {
@@ -281,7 +287,7 @@ public class BusinessRegistrationPage extends BasePage{
         enterCountry(country);
         enterCity(city);
         uploadBusinessDocument(documentPath);
-        clickFinishButton();
+//        clickFinishButton();
     }
 
 
