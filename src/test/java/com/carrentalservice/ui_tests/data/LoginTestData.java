@@ -5,9 +5,11 @@ import java.util.stream.Stream;
 public class LoginTestData {
     public static Stream<Object[]> validLoginTestData() {
         return Stream.of(
-                new Object[]{"test.user@example.com", "ValidPass123!", true, "Login successful"},
-                new Object[]{"newbusinessemail@gmail.com", "newBusiness1@", true, "Login successful"},
-                new Object[]{"newcustomeremail@gmail.com", "newCustomer1@", true, "Login successful"}
+                new Object[]{"jefferytechie@gmail.com", "Password@123", true, "Login successful"},
+                new Object[]{"jefferytechie@gmail.com", "Password@123", true, "Login successful"},
+                new Object[]{"newbusinessemail@gmail.com", "SecurePass123!", true, "Login successful"},
+                new Object[]{"newcustomeremail@gmail.com", "SecurePass123!", true, "Login successful"},
+                new Object[]{"test@example.com", "SecurePass123!", true, "Login successful"}
         );
     }
 
