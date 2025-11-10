@@ -51,7 +51,7 @@ public class LoginTests extends BaseTest {
     @Story("Login Functionality")
     @Severity(SeverityLevel.NORMAL)
     public void testRestrictedPageAccess() {
-        driver.get("https://d2mld9h0uxnhq4.cloudfront.net/dashboard");
+        driver.get("https://d2pnvbshv9sl2w.cloudfront.net/business-owner/dashboard");
         assertTrue(loginPage.isLoginPageDisplayed(), "Expected to be redirected to login page");
     }
 
