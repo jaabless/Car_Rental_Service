@@ -45,7 +45,6 @@ jobs:
   performance:
     name: JMeter Load Test
     runs-on: ubuntu-latest
-    needs: ui-tests
     if: always()
 
     steps:
@@ -67,8 +66,36 @@ jobs:
           name: jmeter-results
           path: jmeter-results
 
+  security:
+    name: OWASP ZAP Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-  generate-and-deploy-report:
+      - name: Prepare reports folder
+        run: mkdir -p reports
+
+      - name: Run OWASP ZAP Scan
+        run: |
+          docker run --rm -u root -v $(pwd)/reports:/zap/wrk/:rw \
+          zaproxy/zap-stable \
+          zap-baseline.py \
+            -t https://www.demoblaze.com/ \
+            -r zap_report.html || true
+
+      - name: Upload ZAP Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ZAP Security Report
+          path: reports/zap_report.html
+
+      - name: list files
+        run: ls -la reports
+
+
+  generate-and-deploy-allure:
+    name: Generate and Deploy Allure Report
     needs: build-and-test
     runs-on: ubuntu-latest
     if: always()
@@ -103,18 +130,123 @@ jobs:
           github_token: ${{ secrets.GH_PAT }}
           publish_dir: target/allure-report
           publish_branch: gh-pages
+          destination_dir: allure-report
+          force_orphan: false
+
+  deploy-jmeter-report:
+    name: Publish JMeter Report
+    runs-on: ubuntu-latest
+    needs: performance
+    if: always()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download JMeter results
+        uses: actions/download-artifact@v4
+        with:
+          name: jmeter-results
+          path: jmeter-results
+
+      - name: Deploy JMeter report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GH_PAT }}
+          publish_dir: jmeter-results/html-report
+          publish_branch: gh-pages
+          destination_dir: jmeter-report
+          force_orphan: false
+
+  deploy-zap-report:
+    name: Publish ZAP Security Report
+    runs-on: ubuntu-latest
+    needs: security
+    if: always()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download ZAP report artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ZAP Security Report
+          path: reports
+
+      - name: Deploy ZAP report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GH_PAT }}
+          publish_dir: ./reports
+          publish_branch: gh-pages
+          destination_dir: zap-report
+          force_orphan: false
 
 
   notify:
-    needs: [ build-and-test,generate-and-deploy-report]
+    name: Send Slack Notification
+    needs: [ build-and-test,performance, security,generate-and-deploy-allure,deploy-jmeter-report,deploy-zap-report ]
     if: always()
     runs-on: ubuntu-latest
     steps:
-      - name: Send Slack Notification
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ needs.build-and-test.result }}
-          text: ${{ needs.build-and-test.outputs.buildStatusMessage }}
-          fields: repo,message,commit,author,action,eventName,ref
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.NEWSLETTER_CHANNEL }}
+      - name: Send Slack notification
+        run: |
+          # Default values
+          STATUS="success"
+          COLOR="good"
+          EMOJI="✅"
+          TITLE="*Product Store Pipeline Passed*"
+
+          # If any upstream job failed because of test/assertion failures
+          if [[ "${{ needs.ui-tests.result }}" == "failure" || \
+                "${{ needs.performance.result }}" == "failure" || \
+                "${{ needs.security.result }}" == "failure" ]]; then
+            STATUS="completed_with_failures"
+            COLOR="warning"
+            EMOJI="❌"
+            TITLE="*Product Store Pipeline Build process failed*"
+          fi
+
+          # If any upstream job failed due to infra (cancelled or error)
+           if [[ "${{ needs.ui-tests.result }}" == "cancelled" || \
+                "${{ needs.performance.result }}" == "cancelled" || \
+                "${{ needs.security.result }}" == "cancelled" || \
+                "${{ needs.ui-tests.result }}" == "skipped" || \
+                "${{ needs.performance.result }}" == "skipped" || \
+                "${{ needs.security.result }}" == "skipped" ]]; then
+             STATUS="failed"
+             COLOR="danger"
+             EMOJI="❌"
+             TITLE="*Product Store Pipeline Failed*"
+           fi
+
+           curl -X POST -H 'Content-type: application/json' --data "{
+             \"attachments\": [
+               {
+                 \"color\": \"$COLOR\",
+                 \"blocks\": [
+                   {
+                     \"type\": \"section\",
+                     \"text\": {
+                       \"type\": \"mrkdwn\",
+                       \"text\": \"$EMOJI $TITLE\n*Status:* $STATUS\"
+                     }
+                   },
+                   {
+                     \"type\": \"section\",
+                     \"fields\": [
+                       {
+                         \"type\": \"mrkdwn\",
+                         \"text\": \"*Reports:*\\n• <https://$GITHUB_REPOSITORY_OWNER.github.io/${{ github.event.repository.name }}/allure-report/index.html|Allure Report>\\n• <https://$GITHUB_REPOSITORY_OWNER.github.io/${{ github.event.repository.name }}/jmeter-report/index.html|JMeter Report>\\n• <https://$GITHUB_REPOSITORY_OWNER.github.io/${{ github.event.repository.name }}/zap-report/zap_report.html|ZAP Security Report>\\n• <https://$GITHUB_REPOSITORY_OWNER.github.io/${{ github.event.repository.name }}/cucumber-report/cucumber-report.html|Cucumber Report>\"
+                       },
+                       {
+                         \"type\": \"mrkdwn\",
+                         \"text\": \"*Build URL:*\n$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID\"
+                       }
+                     ]
+                   }
+                 ]
+               }
+             ]
+           }" ${{ secrets.NEWSLETTER_CHANNEL }}}}
