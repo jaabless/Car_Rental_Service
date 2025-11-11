@@ -22,10 +22,10 @@ public class BusinessRegistrationPage extends BasePage{
     @FindBy(xpath = "//input[@placeholder='e.g. +233242000000']")
     private WebElement phoneNumberField;
 
-    @FindBy(xpath = "//app-input-field[@label='Password']//input[@placeholder='********']")
+    @FindBy(xpath = "//input[@placeholder='**********']")
     private WebElement passwordField;
 
-    @FindBy(xpath = "//app-input-field[@label='Confirm password']//input[@placeholder='********']")
+    @FindBy(xpath = "//input[@placeholder='*********']")
     private WebElement confirmPasswordField;
 
     @FindBy(xpath = "//input[@id='terms']")
