@@ -16,7 +16,7 @@ public class BusinessRegistrationPage extends BasePage{
     @FindBy(xpath = "//input[@placeholder='Jane Doe']")
     private WebElement fullNameField;
 
-    @FindBy(xpath = "//input[@placeholder='user@example.com']")
+    @FindBy(xpath = "//input[@placeholder='user@gmail.com']")
     private WebElement emailField;
 
     @FindBy(xpath = "//input[@placeholder='e.g. +233242000000']")
