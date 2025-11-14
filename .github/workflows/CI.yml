@@ -82,7 +82,7 @@ jobs:
           docker run --rm -u root -v $(pwd)/reports:/zap/wrk/:rw \
           zaproxy/zap-stable \
           zap-baseline.py \
-            -t https://www.demoblaze.com/ \
+            -t https://d2pnvbshv9sl2w.cloudfront.net/homepage/ \
             -r zap_report.html || true
 
       - name: Upload ZAP Report
