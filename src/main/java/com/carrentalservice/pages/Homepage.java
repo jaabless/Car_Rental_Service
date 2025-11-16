@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class Homepage extends BasePage {
 
-    @FindBy(xpath = "//span[normalize-space()='Login']")
+    @FindBy(xpath = "//app-primary-button[@class='hidden md:block']//span[contains(text(),'Login')]")
     private WebElement loginButton;
 
     public Homepage(WebDriver driver) {
