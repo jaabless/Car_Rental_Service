@@ -133,7 +133,7 @@ $(document).ready(function() {
         widgets: ['zebra']
     });
 
-    var data = {"OkPercent": 62.5, "KoPercent": 37.5};
+    var data = {"OkPercent": 50.0, "KoPercent": 50.0};
     var dataset = [
         {
             "label" : "FAIL",
@@ -173,7 +173,7 @@ $(document).ready(function() {
     });
 
     // Creates APDEX table
-    createTable($("#apdexTable"), {"supportsControllersDiscrimination": true, "overall": {"data": [0.5, 500, 1500, "Total"], "isController": false}, "titles": ["Apdex", "T (Toleration threshold)", "F (Frustration threshold)", "Label"], "items": [{"data": [0.0, 500, 1500, "Submit Order"], "isController": false}, {"data": [1.0, 500, 1500, "Homepage"], "isController": false}, {"data": [1.0, 500, 1500, "Cart Page"], "isController": false}, {"data": [0.0, 500, 1500, "Checkout"], "isController": true}, {"data": [0.0, 500, 1500, "Open Checkout Page"], "isController": false}, {"data": [0.0, 500, 1500, "Send Message"], "isController": false}, {"data": [1.0, 500, 1500, "Product Detail Page"], "isController": false}, {"data": [1.0, 500, 1500, "View Cart"], "isController": false}, {"data": [1.0, 500, 1500, "Open Contact Page"], "isController": false}, {"data": [0.0, 500, 1500, "Contact"], "isController": true}]}, function(index, item){
+    createTable($("#apdexTable"), {"supportsControllersDiscrimination": true, "overall": {"data": [0.25, 500, 1500, "Total"], "isController": false}, "titles": ["Apdex", "T (Toleration threshold)", "F (Frustration threshold)", "Label"], "items": [{"data": [0.0, 500, 1500, "Register Customer"], "isController": false}, {"data": [0.5, 500, 1500, "User Login"], "isController": false}]}, function(index, item){
         switch(index){
             case 0:
                 item = item.toFixed(3);
@@ -187,7 +187,7 @@ $(document).ready(function() {
     }, [[0, 0]], 3);
 
     // Create statistics table
-    createTable($("#statisticsTable"), {"supportsControllersDiscrimination": true, "overall": {"data": ["Total", 40, 15, 37.5, 66.29999999999997, 19, 489, 62.0, 116.39999999999993, 129.64999999999998, 489.0, 4.466279589102277, 27.128068822577045, 0.912119842842787], "isController": false}, "titles": ["Label", "#Samples", "FAIL", "Error %", "Average", "Min", "Max", "Median", "90th pct", "95th pct", "99th pct", "Transactions/s", "Received", "Sent"], "items": [{"data": ["Submit Order", 5, 5, 100.0, 62.6, 60, 65, 62.0, 65.0, 65.0, 65.0, 0.6817562039814562, 0.32822832867466595, 0.16910749590946278], "isController": false}, {"data": ["Homepage", 5, 0, 0.0, 176.0, 72, 489, 121.0, 489.0, 489.0, 489.0, 0.6280618012812461, 3.0981111041326463, 0.11040148850646904], "isController": false}, {"data": ["Cart Page", 5, 0, 0.0, 40.2, 19, 65, 27.0, 65.0, 65.0, 65.0, 0.6775985905949315, 10.711219126914216, 0.12506458361566608], "isController": false}, {"data": ["Checkout", 5, 5, 100.0, 124.4, 122, 127, 124.0, 127.0, 127.0, 127.0, 0.6681812107443539, 0.6453429857677403, 0.2916767589870373], "isController": true}, {"data": ["Open Checkout Page", 5, 5, 100.0, 61.8, 61, 62, 62.0, 62.0, 62.0, 62.0, 0.6729475100942126, 0.32595895020188426, 0.12683483344549126], "isController": false}, {"data": ["Send Message", 5, 5, 100.0, 61.4, 59, 64, 61.0, 64.0, 64.0, 64.0, 0.6779661016949153, 0.3283898305084746, 0.1873675847457627], "isController": false}, {"data": ["Product Detail Page", 5, 0, 0.0, 51.6, 19, 130, 21.0, 130.0, 130.0, 130.0, 0.6700616456714018, 5.545283603591531, 0.12825398686679174], "isController": false}, {"data": ["View Cart", 5, 0, 0.0, 30.2, 19, 64, 20.0, 64.0, 64.0, 64.0, 0.6734006734006734, 6.070075757575758, 0.12428977272727273], "isController": false}, {"data": ["Open Contact Page", 5, 0, 0.0, 46.6, 19, 72, 60.0, 72.0, 72.0, 72.0, 0.6729475100942126, 6.131445575370122, 0.12420613223418574], "isController": false}, {"data": ["Contact", 5, 5, 100.0, 108.0, 79, 136, 121.0, 136.0, 136.0, 136.0, 0.6805498843065196, 6.530354651558459, 0.3136909622975364], "isController": true}]}, function(index, item){
+    createTable($("#statisticsTable"), {"supportsControllersDiscrimination": true, "overall": {"data": ["Total", 2, 1, 50.0, 541.0, 12, 1070, 541.0, 1070.0, 1070.0, 1070.0, 1.027749229188078, 1.9134803764131552, 0.15657117163412126], "isController": false}, "titles": ["Label", "#Samples", "FAIL", "Error %", "Average", "Min", "Max", "Median", "90th pct", "95th pct", "99th pct", "Transactions/s", "Received", "Sent"], "items": [{"data": ["Register Customer", 1, 1, 100.0, 12.0, 12, 12, 12.0, 12.0, 12.0, 12.0, 83.33333333333333, 207.68229166666666, 0.0], "isController": false}, {"data": ["User Login", 1, 0, 0.0, 1070.0, 1070, 1070, 1070.0, 1070.0, 1070.0, 1070.0, 0.9345794392523364, 1.150883469626168, 0.28475467289719625], "isController": false}]}, function(index, item){
         switch(index){
             // Errors pct
             case 3:
@@ -217,7 +217,7 @@ $(document).ready(function() {
     }, [[0, 0]], 0, summaryTableHeader);
 
     // Create error table
-    createTable($("#errorsTable"), {"supportsControllersDiscrimination": false, "titles": ["Type of error", "Number of errors", "% in errors", "% in all samples"], "items": [{"data": ["404/Not Found", 15, 100.0, 37.5], "isController": false}]}, function(index, item){
+    createTable($("#errorsTable"), {"supportsControllersDiscrimination": false, "titles": ["Type of error", "Number of errors", "% in errors", "% in all samples"], "items": [{"data": ["Non HTTP response code: java.io.FileNotFoundException/Non HTTP response message: /jmeter/performance/C:\\\\Users\\\\USER\\\\Desktop\\\\CODE\\\\JAVA\\\\GTP LABS\\\\QA\\\\Entertainment Web App.pdf (No such file or directory)", 1, 100.0, 50.0], "isController": false}]}, function(index, item){
         switch(index){
             case 2:
             case 3:
@@ -228,7 +228,7 @@ $(document).ready(function() {
     }, [[1, 1]]);
 
         // Create top5 errors by sampler
-    createTable($("#top5ErrorsBySamplerTable"), {"supportsControllersDiscrimination": false, "overall": {"data": ["Total", 40, 15, "404/Not Found", 15, "", "", "", "", "", "", "", ""], "isController": false}, "titles": ["Sample", "#Samples", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors"], "items": [{"data": ["Submit Order", 5, 5, "404/Not Found", 5, "", "", "", "", "", "", "", ""], "isController": false}, {"data": [], "isController": false}, {"data": [], "isController": false}, {"data": [], "isController": false}, {"data": ["Open Checkout Page", 5, 5, "404/Not Found", 5, "", "", "", "", "", "", "", ""], "isController": false}, {"data": ["Send Message", 5, 5, "404/Not Found", 5, "", "", "", "", "", "", "", ""], "isController": false}, {"data": [], "isController": false}, {"data": [], "isController": false}, {"data": [], "isController": false}, {"data": [], "isController": false}]}, function(index, item){
+    createTable($("#top5ErrorsBySamplerTable"), {"supportsControllersDiscrimination": false, "overall": {"data": ["Total", 2, 1, "Non HTTP response code: java.io.FileNotFoundException/Non HTTP response message: /jmeter/performance/C:\\\\Users\\\\USER\\\\Desktop\\\\CODE\\\\JAVA\\\\GTP LABS\\\\QA\\\\Entertainment Web App.pdf (No such file or directory)", 1, "", "", "", "", "", "", "", ""], "isController": false}, "titles": ["Sample", "#Samples", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors"], "items": [{"data": ["Register Customer", 1, 1, "Non HTTP response code: java.io.FileNotFoundException/Non HTTP response message: /jmeter/performance/C:\\\\Users\\\\USER\\\\Desktop\\\\CODE\\\\JAVA\\\\GTP LABS\\\\QA\\\\Entertainment Web App.pdf (No such file or directory)", 1, "", "", "", "", "", "", "", ""], "isController": false}, {"data": [], "isController": false}]}, function(index, item){
         return item;
     }, [[0, 0]], 0);
 
