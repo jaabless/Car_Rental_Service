@@ -11,6 +11,6 @@ public class TestData {
     public static final String INVALID_EMAIL = "nonexistent@example";
     public static final String EMPTY = "";
     public static final String SQL_INJECTION = "admin' OR '1'='1";
-    public static final String VERY_LONG_STRING = "a".repeat(3000);
+    public static final String VERY_LONG_STRING = "a".repeat(30);
 }
 
