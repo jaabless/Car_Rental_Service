@@ -26,30 +26,30 @@ public class RegisterCustomerTestData {
                 Arguments.of("John Kwame", "test@example.com", "+233245323451", "SecurePass123!", "SecurePass123!")
         );
     }
-//
-//    public static Stream<Arguments> validCompanyData() {
-//        return Stream.of(
-//                Arguments.of("Acme Car Rentals", "src/test/resources/files/logo.png", "Ghana", "Los Angeles", "src/test/resources/files/doc.pdf"),
-//                Arguments.of("Real Estate", "src/test/resources/files/logo.png", "Ghana", "Miami", "src/test/resources/files/doc.pdf")
-//        );
-//    }
-//
-//    public static Stream<Arguments> invalidCompanyData() {
-//        return Stream.of(
-//                Arguments.of(
-//                        "John Doe", "john.doe@acme.com", "+233242531625", "SecurePass123!", "SecurePass123!",
-//                        "", "src/test/resources/files/logo.png", "Ghana", "Kumasi", "src/test/resources/files/doc.pdf", "Company Name is required"
-//                ),
-//                Arguments.of(
-//                        "John Doe", "john.doe@acme.com", "+233242531625", "SecurePass123!", "SecurePass123!",
-//                        "Company Name", "src/test/resources/files/logo.png", "Ghana", "", "src/test/resources/files/doc.pdf", "City / Location is required"
-//                ),
-//                Arguments.of(
-//                        "John Doe", "john.doe@acme.com", "+233242531625", "SecurePass123!", "SecurePass123!",
-//                        "My Company", "src/test/resources/files/doc.pdf", "Ghana", "Kumasi", "src/test/resources/files/doc.pdf", "Invalid file type. Only .jpg, .png, .jpeg files are allowed."
-//                )
-//        );
-//    }
+
+    public static Stream<Arguments> validCompanyData() {
+        return Stream.of(
+                Arguments.of("Acme Car Rentals", "src/test/resources/files/logo.png", "Ghana", "Los Angeles", "src/test/resources/files/doc.pdf"),
+                Arguments.of("Real Estate", "src/test/resources/files/logo.png", "Ghana", "Miami", "src/test/resources/files/doc.pdf")
+        );
+    }
+
+    public static Stream<Arguments> invalidDriverDetail() {
+        return Stream.of(
+                Arguments.of(
+                        "John Doe", "john.doe@acme.com", "+233242531625", "SecurePass123!", "SecurePass123!",
+                        "", "src/test/resources/files/logo.png", "Ghana", "Kumasi", "src/test/resources/files/doc.pdf", "Company Name is required"
+                ),
+                Arguments.of(
+                        "John Doe", "john.doe@acme.com", "+233242531625", "SecurePass123!", "SecurePass123!",
+                        "Company Name", "src/test/resources/files/logo.png", "Ghana", "", "src/test/resources/files/doc.pdf", "City / Location is required"
+                ),
+                Arguments.of(
+                        "John Doe", "john.doe@acme.com", "+233242531625", "SecurePass123!", "SecurePass123!",
+                        "My Company", "src/test/resources/files/doc.pdf", "Ghana", "Kumasi", "src/test/resources/files/doc.pdf", "Invalid file type. Only .jpg, .png, .jpeg files are allowed."
+                )
+        );
+    }
 
     public static Stream<Arguments> validRegistrationData() {
         return Stream.of(
@@ -62,7 +62,7 @@ public class RegisterCustomerTestData {
                         "DL0001","Ghana", "src/test/resources/files/doc.pdf"
                 ),
                 Arguments.of(
-                        "Customer John", "newcustomeremail13@gmail.com", "+233242531625", "SecurePass123!", "SecurePass123!",
+                        "Customer John", "newcustomeremail14@gmail.com", "+233242531625", "SecurePass123!", "SecurePass123!",
                         "DL0001","Afghanistan", "src/test/resources/files/doc.pdf"
                 )
         );
