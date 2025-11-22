@@ -122,7 +122,6 @@ public class LoginTests extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     public void emptyFieldsShowsError() {
         LoginPage login = new LoginPage(driver);
-        login.open();
         login.enterEmail(TestData.EMPTY);
         login.enterPassword(TestData.EMPTY);
         login.clickLogin();
@@ -133,7 +132,6 @@ public class LoginTests extends BaseTest {
     @Test
     public void longInputEdgeCase() {
         LoginPage login = new LoginPage(driver);
-        login.open();
         login.enterEmail(TestData.VERY_LONG_STRING + "@example.com");
         login.enterPassword(TestData.VERY_LONG_STRING);
         login.clickLogin();
