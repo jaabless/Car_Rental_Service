@@ -38,15 +38,11 @@ public class RegisterCustomerTestData {
         return Stream.of(
                 Arguments.of(
                         "John Doe", "john.doe@acme.com", "+233242531625", "SecurePass123!", "SecurePass123!",
-                        "", "src/test/resources/files/logo.png", "Ghana", "Kumasi", "src/test/resources/files/doc.pdf", "Company Name is required"
+                        "DL0001","dadada", "src/test/resources/files/doc.pdf", "Country does not exist"
                 ),
                 Arguments.of(
                         "John Doe", "john.doe@acme.com", "+233242531625", "SecurePass123!", "SecurePass123!",
-                        "Company Name", "src/test/resources/files/logo.png", "Ghana", "", "src/test/resources/files/doc.pdf", "City / Location is required"
-                ),
-                Arguments.of(
-                        "John Doe", "john.doe@acme.com", "+233242531625", "SecurePass123!", "SecurePass123!",
-                        "My Company", "src/test/resources/files/doc.pdf", "Ghana", "Kumasi", "src/test/resources/files/doc.pdf", "Invalid file type. Only .jpg, .png, .jpeg files are allowed."
+                        "DL0001","Afghanistan", "src/test/resources/files/logo.png", "Invalid file type. Only .pdf files are allowed."
                 )
         );
     }
