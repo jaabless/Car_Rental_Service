@@ -74,7 +74,7 @@ public class RegisterBusinessTestData {
                         "Test Car Rentals", "src/test/resources/files/logo.png", "Ghana", "Kumasi", "src/test/resources/files/doc.pdf"
                 ),
                 Arguments.of(
-                        "John Doe", "jefferytechie@gmail.com", "+233242531625", "SecurePass123!", "SecurePass123!",
+                        "John Doe", "jefferytechie1@gmail.com", "+233242531625", "SecurePass123!", "SecurePass123!",
                         "Techie Car Rentals", "src/test/resources/files/logo.png", "Ghana", "Kumasi", "src/test/resources/files/doc.pdf"
                 )
         );
