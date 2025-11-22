@@ -31,7 +31,7 @@ public class BusinessRegistrationTests extends BaseTest{
         BusinessRegistrationPage businessRegistrationPage = new BusinessRegistrationPage(driver);
         businessRegistrationPage.completeBusinessRegistration(fullName, email, phoneNumber, password, confirmPassword, companyName, logoPath, country, city, documentPath);
         assertTrue(businessRegistrationPage.isReviewPageDisplayed());
-        assertEquals(businessRegistrationPage.getReviewMessage(), "Your Account Is Being Reviewed");
+        assertEquals("Your Account Is Being Reviewed", businessRegistrationPage.getReviewMessage());
     }
 
     @ParameterizedTest
