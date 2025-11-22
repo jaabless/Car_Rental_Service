@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 
 public class DashboardPage extends BasePage {
 
-    @FindBy(xpath = "//p[normalize-space()='dashboard works!']") // example
+    @FindBy(xpath = "//h2[normalize-space()='Dashboard']") // example
     private WebElement dashboardLabel;
 
     public DashboardPage(WebDriver driver) {
