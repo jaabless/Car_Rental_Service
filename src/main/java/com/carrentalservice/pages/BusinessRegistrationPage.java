@@ -58,7 +58,7 @@ public class BusinessRegistrationPage extends BasePage{
     @FindBy(xpath = "//button[normalize-space()='Back']")
     private WebElement backButton;
 
-    @FindBy(xpath = "//p[contains(@class, 'text-[color:var(--color-danger-default)]')]")
+    @FindBy(xpath = "//p[contains(@class, 'danger')]")
     private WebElement inputErrorMessage;
 
     @FindBy(xpath = "//p[contains(@class, 'text-red-500') and contains(@class, 'text-xs')]")
