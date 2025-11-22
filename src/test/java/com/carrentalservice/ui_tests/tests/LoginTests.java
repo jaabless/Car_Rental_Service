@@ -8,7 +8,6 @@ import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,15 +29,27 @@ public class LoginTests extends BaseTest {
     }
 
     @ParameterizedTest
-    @MethodSource("com.carrentalservice.ui_tests.data.LoginTestData#validLoginTestData")
-    @Story("Login Functionality")
-    @DisplayName("Verify that all users can securely log in to access the platform with valid credentials")
+    @MethodSource("com.carrentalservice.ui_tests.data.LoginTestData#validBusinessLoginTestData")
+    @Story("Login Functionality - Business Owner")
+    @DisplayName("Verify that all business owners can securely log in to access the platform with valid credentials")
     @Severity(SeverityLevel.CRITICAL)
     public void testLoginWithValidData(String email, String password, boolean shouldSucceed, String expectedResult) {
         LoginPage loginPage = new LoginPage(driver);
         DashboardPage dashboard = loginPage.enterCredentials(email, password);
         assertTrue(dashboard.isLoaded(), "Dashboard should load after successful login");
-        assertEquals(dashboard.getUserName(), "dashboard works!", "Unexpected user name on dashboard");
+        assertEquals(dashboard.getUserName(), "Dashboard", "Unexpected user name on dashboard");
+    }
+
+    @ParameterizedTest
+    @MethodSource("com.carrentalservice.ui_tests.data.LoginTestData#validCustomerLoginTestData")
+    @Story("Login Functionality - Customers")
+    @DisplayName("Verify that all customers can securely log in to access the platform with valid credentials")
+    @Severity(SeverityLevel.CRITICAL)
+    public void testCustomerLoginWithValidData(String email, String password, boolean shouldSucceed, String expectedResult) {
+        LoginPage loginPage = new LoginPage(driver);
+        DashboardPage dashboard = loginPage.enterCredentials(email, password);
+        assertTrue(dashboard.isLoaded(), "Dashboard should load after successful login");
+        assertEquals(dashboard.getUserName(), "Dashboard", "Unexpected user name on dashboard");
     }
 
     @ParameterizedTest
