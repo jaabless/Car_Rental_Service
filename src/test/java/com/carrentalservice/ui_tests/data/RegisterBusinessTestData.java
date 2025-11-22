@@ -16,11 +16,11 @@ public class RegisterBusinessTestData {
 
     public static Stream<Arguments> invalidAccountData() {
         return Stream.of(
-                Arguments.of("", "test@example.com", "+233245323651", "SecurePass123!", "SecurePass123!", "Full name is required"),
+                Arguments.of("", "test@example.com", "+233245323651", "SecurePass123!", "SecurePass123!", "Full Name is required"),
                 Arguments.of("John Doe", "", "+233245323651", "SecurePass123!", "SecurePass123!", "Email is required"),
                 Arguments.of("John Doe", "invalid", "+233245323651", "SecurePass123!", "SecurePass123!", "Email invalid"),
-                Arguments.of("John Doe", "test@example.com", "", "SecurePass123!", "SecurePass123!!", "Phone number is required"),
-                Arguments.of("John Doe", "test@example.com", "12345678", "SecurePass123!", "SecurePass123!", "Invalid phone number"),
+                Arguments.of("John Doe", "test@example.com", "", "SecurePass123!", "SecurePass123!", "Phone Number is required"),
+                Arguments.of("John Doe", "test@example.com", "12345678", "SecurePass123!", "SecurePass123!", "Phone number must start with a '+'."),
                 Arguments.of("John Doe", "test@example.com", "+233245323651", "pass", "SecurePass123!", "Your passwords do not match"),
                 Arguments.of("John Doe", "test@example.com", "+233245323651", "SecurePass123!", "", "Your passwords do not match"),
                 Arguments.of("John Doe", "test@example.com", "+233245323651", "SecurePass123!", "WrongPass", "Your passwords do not match")
