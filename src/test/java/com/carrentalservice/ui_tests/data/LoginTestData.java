@@ -3,12 +3,20 @@ package com.carrentalservice.ui_tests.data;
 import java.util.stream.Stream;
 
 public class LoginTestData {
-    public static Stream<Object[]> validLoginTestData() {
+    public static Stream<Object[]> validBusinessLoginTestData() {
         return Stream.of(
-                new Object[]{"jefferytechie@gmail.com", "SecurePass123!", true, "Login successful"},
+                new Object[]{"jefferytechie1@gmail.com", "SecurePass123!", true, "Login successful"},
                 new Object[]{"newbusinessemail@gmail.com", "SecurePass123!", true, "Login successful"},
                 new Object[]{"newcustomeremail@gmail.com", "SecurePass123!", true, "Login successful"},
                 new Object[]{"test@example.com", "SecurePass123!", true, "Login successful"}
+        );
+    }
+
+    public static Stream<Object[]> validCustomerLoginTestData() {
+        return Stream.of(
+                new Object[]{"newcustomeremail12@gmail.com", "SecurePass123!", true, "Login successful"},
+                new Object[]{"newcustomeremail13@gmail.com", "SecurePass123!", true, "Login successful"},
+                new Object[]{"newcustomeremail14@gmail.com", "SecurePass123!", true, "Login successful"}
         );
     }
 
