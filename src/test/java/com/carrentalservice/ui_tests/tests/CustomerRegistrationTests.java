@@ -36,23 +36,23 @@ public class CustomerRegistrationTests extends BaseTest{
     }
 
     @ParameterizedTest
-    @MethodSource("com.carrentalservice.ui_tests.data.RegisterBusinessTestData#invalidAccountData")
-    @Story("Business Registration Functionality")
+    @MethodSource("com.carrentalservice.ui_tests.data.RegisterCustomerTestData#invalidAccountData")
+    @Story("Customer Registration Functionality")
     @DisplayName("Verify that registration fails with invalid account details")
     public void testRegisterWithInvalidData(
             String fullName, String email, String phoneNumber,
             String password, String confirmPassword, String expectedError) {
 
-        BusinessRegistrationPage accountPage = new BusinessRegistrationPage(driver);
-        accountPage.completeAccountDetails(fullName, email, phoneNumber, password, confirmPassword);
+        CustomerRegistrationPage customerRegistrationPage = new CustomerRegistrationPage(driver);
+        customerRegistrationPage.completeAccountDetails(fullName, email, phoneNumber, password, confirmPassword);
 
 //        assertTrue(accountPage.isInputErrorVisible(), "Error should be visible");
-        assertEquals(expectedError, accountPage.getInputErrorMessage(), "Unexpected error message");
+        assertEquals(expectedError, customerRegistrationPage.getInputErrorMessage(), "Unexpected error message");
     }
 
     @ParameterizedTest
     @MethodSource("com.carrentalservice.ui_tests.data.RegisterBusinessTestData#validAccountData")
-    @Story("Business Registration Functionality")
+    @Story("Customer Registration Functionality")
     @DisplayName("Verify that registration succeeds with valid account details")
     public void testRegisterWithValidData(
             String fullName, String email, String phoneNumber,
@@ -67,7 +67,7 @@ public class CustomerRegistrationTests extends BaseTest{
 
     @ParameterizedTest
     @MethodSource("com.carrentalservice.ui_tests.data.RegisterBusinessTestData#invalidCompanyData")
-    @Story("Business Registration Functionality")
+    @Story("Customer Registration Functionality")
     @DisplayName("Verify that registration fails with invalid company details")
     public void testCompanyRegistrationWithInvalidData(String fullName, String email, String phoneNumber, String password, String confirmPassword,
                                                        String companyName, String logoPath, String country, String city, String documentPath, String expectedError) {
