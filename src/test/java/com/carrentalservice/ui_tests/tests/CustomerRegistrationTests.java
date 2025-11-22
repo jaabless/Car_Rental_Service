@@ -51,34 +51,28 @@ public class CustomerRegistrationTests extends BaseTest{
     }
 
     @ParameterizedTest
-    @MethodSource("com.carrentalservice.ui_tests.data.RegisterBusinessTestData#validAccountData")
+    @MethodSource("com.carrentalservice.ui_tests.data.RegisterCustomerTestData#validAccountData")
     @Story("Customer Registration Functionality")
     @DisplayName("Verify that registration succeeds with valid account details")
     public void testRegisterWithValidData(
             String fullName, String email, String phoneNumber,
             String password, String confirmPassword) {
 
-        BusinessRegistrationPage accountPage = new BusinessRegistrationPage(driver);
-        accountPage.completeAccountDetails(fullName, email, phoneNumber, password, confirmPassword);
-        accountPage.clickNextButton();
+        CustomerRegistrationPage customerRegistrationPage = new CustomerRegistrationPage(driver);
+        customerRegistrationPage.completeAccountDetails(fullName, email, phoneNumber, password, confirmPassword);
+        customerRegistrationPage.clickNextButton();
 
-        assertTrue(accountPage.isFinishButtonVisible(), "Finish button should be visible");
+        assertTrue(customerRegistrationPage.isFinishButtonVisible(), "Finish button should be visible");
     }
 
     @ParameterizedTest
-    @MethodSource("com.carrentalservice.ui_tests.data.RegisterBusinessTestData#invalidCompanyData")
+    @MethodSource("com.carrentalservice.ui_tests.data.RegisterCustomerTestData#invalidDriverDetail")
     @Story("Customer Registration Functionality")
-    @DisplayName("Verify that registration fails with invalid company details")
-    public void testCompanyRegistrationWithInvalidData(String fullName, String email, String phoneNumber, String password, String confirmPassword,
-                                                       String companyName, String logoPath, String country, String city, String documentPath, String expectedError) {
-        BusinessRegistrationPage accountPage = new BusinessRegistrationPage(driver);
-        accountPage.completeAccountDetails(fullName, email, phoneNumber, password, confirmPassword);
-        accountPage.clickNextButton();
-        BusinessRegistrationPage companyPage = new BusinessRegistrationPage(driver);
-        companyPage.completeCompanyDetails(companyName, logoPath, country, city, documentPath);
-//        assertTrue(companyPage.isInputErrorVisible(), "Error should be visible");
-//        assertTrue(companyPage.isFIleErrorVisible(), "Error should be visible");
-        assertEquals(expectedError, companyPage.getInputErrorMessage(), "Unexpected error message");
-//        assertEquals(expectedError, companyPage.getFileErrorMessage(), "Unexpected error message");
+    @DisplayName("Verify that registration fails with invalid drivers details")
+    public void testDriverRegistrationWithInvalidData(String licenseNumber, String country, String documentPath, String expectedError) {
+        CustomerRegistrationPage customerRegistrationPage = new CustomerRegistrationPage(driver);
+        customerRegistrationPage.completeDriversDetails(licenseNumber, country, documentPath);
+
+        assertEquals(expectedError, customerRegistrationPage.getInputErrorMessage(), "Unexpected error message");
     }
 }
