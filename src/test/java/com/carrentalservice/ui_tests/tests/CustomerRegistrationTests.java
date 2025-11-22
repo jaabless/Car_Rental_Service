@@ -69,7 +69,11 @@ public class CustomerRegistrationTests extends BaseTest{
     @MethodSource("com.carrentalservice.ui_tests.data.RegisterCustomerTestData#invalidDriverDetail")
     @Story("Customer Registration Functionality")
     @DisplayName("Verify that registration fails with invalid drivers details")
-    public void testDriverRegistrationWithInvalidData(String licenseNumber, String country, String documentPath, String expectedError) {
+    public void testDriverRegistrationWithInvalidData(String fullName, String email, String phoneNumber, String password, String confirmPassword,
+                                                      String licenseNumber, String country, String documentPath, String expectedError) {
+        CustomerRegistrationPage accountPage = new CustomerRegistrationPage(driver);
+        accountPage.completeAccountDetails(fullName, email, phoneNumber, password, confirmPassword);
+        accountPage.clickNextButton();
         CustomerRegistrationPage customerRegistrationPage = new CustomerRegistrationPage(driver);
         customerRegistrationPage.completeDriversDetails(licenseNumber, country, documentPath);
 
